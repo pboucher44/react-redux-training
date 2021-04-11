@@ -7,20 +7,11 @@ import {
     selectTableau,
 } from './tableauSlice';
 import {useDispatch, useSelector} from "react-redux";
-import {Carte} from "../Cartes/Carte";
+import Colonne from "./Colonne/Colonne";
 
 export function Tableau() {
 
     const tableau = useSelector(selectTableau);
-
-    const Content = () => {
-        return tableau.colonnes ? tableau.colonnes.map((colonne) =>
-         <div className={styles.colonne} key={colonne.id}>
-             <input className={styles.titre} defaultValue={colonne.title}></input>
-             <button className={styles.buttonSupp} onClick={() => dispatch(deleteColonne(colonne.id))}>X</button>
-             <Carte/>
-         </div>
-    ) : ""};
 
     const dispatch = useDispatch();
 
@@ -28,7 +19,9 @@ export function Tableau() {
         <div className={styles.tableau}>
             <button className={styles.buttonAjout} onClick={() => dispatch(createColonne())}>Ajouter une colonne</button>
             <div className={styles.gridSize}>
-                <Content></Content>
+                {tableau.colonnes.length > 0 && tableau.colonnes.map((colonne) =>
+                    <Colonne colonne={colonne}/>
+                )}
             </div>
         </div>
     )
