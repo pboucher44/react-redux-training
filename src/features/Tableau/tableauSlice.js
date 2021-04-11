@@ -10,8 +10,10 @@ export const tableauSlice = createSlice({
     initialState,
     reducers: {
         createColonne: (state) => {
-            const id = uuidv4();
-            state.colonnes.push({id:id, title:"New column"});
+            if (state.colonnes.length < 20) {
+                const id = uuidv4();
+                state.colonnes.push({id:id, title:"New column"});
+            }
         },
         deleteColonne: (state, id) => {
             return {
